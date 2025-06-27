@@ -55,7 +55,7 @@ You have several ways to change the look and feel of your CVfolio site:
 
 1.  **Global Styles (`src/styles/global.css`):**
     *   **Colors:** Modify CSS custom properties (variables) for primary, secondary, accent, and background colors to match your personal brand. Look for the `:root` selector where these are typically defined.
-    *   **Fonts:** Change the `font-family` properties for body text and headings. You can use web-safe fonts or import custom fonts (see "Adding Custom Fonts" below).
+    *   **Fonts:** Change the `font-family` properties for body text and headings. You can use web-safe fonts or integrate local fonts using the methods described below (see point 3).
     *   **Typography:** Adjust base font sizes, line heights, and other typographic scales to your liking.
 
 2.  **Tailwind CSS Configuration (`tailwind.config.cjs`):**
@@ -76,21 +76,85 @@ You have several ways to change the look and feel of your CVfolio site:
         ```
         You can then use this color in your HTML/Astro components with classes like `bg-brand-primary` or `text-brand-primary`.
 
-3.  **Adding Custom Fonts:**
-    *   Download your desired font files (preferably in WOFF2 format for web performance).
-    *   Place them in the `src/assets/fonts/` directory.
-    *   Import them using `@font-face` rules in `src/styles/global.css`:
+3.  **Using Local Fonts with `experimental.fonts` (Astro 3.0+):**
+    *   Astro's `experimental.fonts` feature provides an optimized way to use local fonts. It automatically generates `@font-face` rules, creates font subsets for performance, and can preload fonts.
+    *   **Configuration (`astro.config.mjs`):**
+        Define your local fonts in the `experimental.fonts` array within your Astro configuration file.
+        ```javascript
+        // astro.config.mjs
+        import { defineConfig } from 'astro/config';
+
+        export default defineConfig({
+          experimental: {
+            fonts: [
+              {
+                // Name for your font family in CSS
+                name: 'YourCustomFont',
+                // Path to your local font file(s) relative to project root
+                src: [
+                  {
+                    path: 'src/assets/fonts/YourCustomFont-Regular.woff2',
+                    weight: '400', // Or 'normal'
+                    style: 'normal',
+                  },
+                  {
+                    path: 'src/assets/fonts/YourCustomFont-Bold.woff2',
+                    weight: '700', // Or 'bold'
+                    style: 'normal',
+                  },
+                  {
+                    path: 'src/assets/fonts/YourCustomFont-Italic.woff2',
+                    weight: '400', // Or 'normal'
+                    style: 'italic',
+                  },
+                ],
+                // Optional: Preload this font on all pages
+                preload: true,
+                // Optional: Fallback font family
+                fallback: 'sans-serif',
+                // Optional: Control font-display property
+                display: 'swap',
+              },
+              // You can add more font definitions here
+            ]
+          }
+        });
+        ```
+    *   **Important Notes for Configuration:**
+        *   Ensure your font files (e.g., `.woff2`, `.ttf`) are correctly placed, for example, in `src/assets/fonts/`.
+        *   The `name` you provide will be the `font-family` name you use in your CSS.
+        *   Specify the correct `weight` and `style` for each font file.
+        *   Refer to the [official Astro documentation on `experimental.fonts`](https://docs.astro.build/en/guides/fonts/#experimental-local-font-optimization) for the most up-to-date options and details.
+    *   **Usage in CSS (`src/styles/global.css` or Tailwind config):**
+        Once configured, you can use the font family directly in your CSS without writing `@font-face` rules yourself:
         ```css
         /* src/styles/global.css */
-        @font-face {
-          font-family: 'YourCustomFont'; /* Choose a name for your font */
-          src: url('../assets/fonts/YourCustomFont-Regular.woff2') format('woff2');
-          font-weight: normal; /* Or specific weight like 400, 700 */
-          font-style: normal;  /* Or italic, oblique */
-          font-display: swap;  /* Ensures text remains visible during font loading */
+        body {
+          font-family: 'YourCustomFont', sans-serif; /* 'sans-serif' is the fallback */
+        }
+
+        h1, h2, h3 {
+          font-family: 'YourCustomFont', /* Fallback specified in astro.config.mjs will apply */
+          font-weight: 700; /* To use the bold version if configured */
         }
         ```
-    *   Apply the font in `src/styles/global.css` (e.g., to `body` or specific heading classes) or by extending the theme in `tailwind.config.cjs`.
+    *   Or, integrate it with Tailwind CSS by extending your theme in `tailwind.config.cjs`:
+        ```javascript
+        // tailwind.config.cjs
+        const defaultTheme = require('tailwindcss/defaultTheme');
+
+        module.exports = {
+          theme: {
+            extend: {
+              fontFamily: {
+                sans: ['YourCustomFont', ...defaultTheme.fontFamily.sans], // Adds 'YourCustomFont' to the beginning of sans-serif stack
+              },
+            },
+          },
+          plugins: [],
+        }
+        ```
+    *   This method is generally preferred over manual `@font-face` rules for local fonts in Astro projects due to the performance benefits it offers.
 
 4.  **Component Structure (`src/components/`):**
     *   Modify the Astro components in this directory if you want to change the structure or layout of specific sections (e.g., how project cards are displayed, the order of elements in the header, or the footer's content).
@@ -264,5 +328,4 @@ CVfolio is set up with Search Engine Optimization (SEO) best practices in mind. 
     *   For enhanced SEO, you can extend existing schema or add more specific schema types relevant to your content (e.g., `JobPosting`, `Project`).
     *   Use tools like [Google's Rich Results Test](https://search.google.com/test/rich-results) and [Schema Markup Validator](https://validator.schema.org/) to create and validate your structured data.
 
-By carefully managing these SEO elements, you can significantly improve your site's visibility and how it's represented in search engine results and on social media platforms.
 By carefully managing these SEO elements, you can significantly improve your site's visibility and how it's represented in search engine results and on social media platforms.
