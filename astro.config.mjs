@@ -74,4 +74,11 @@ export default defineConfig({
       },
     ],
   },
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'es'],
+    routing: {
+      prefixDefaultLocale: false, // This means 'en' will not have a prefix, e.g. /about instead of /en/about
+    }
+  }
 });
