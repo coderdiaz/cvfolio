@@ -1,0 +1,20 @@
+{
+  "layout": {
+    "header": true,
+    "footer": true,
+    "themeSwitcher": true
+  },
+  "sections": {
+    "homepage": {
+      "author": true,
+      "about": true,
+      "contact": true,
+      "workExperience": true,
+      "speaking": true
+    },
+    "writing": {
+      "author": true,
+      "latestPosts": true
+    }
+  }
+}

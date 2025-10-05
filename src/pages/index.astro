@@ -6,6 +6,7 @@ import Author from '@/components/ui/Author.astro';
 import { DEFAULT_CONFIGURATION } from '@/lib/constants';
 import WorkExperience from '@/components/ui/WorkExperience.astro';
 import Talk from '@/components/ui/Talk.astro';
+import { loadSiteConfig } from '@/lib/site-config';
 import { sortJobsByDate } from '@/lib/utils';
 
 const entry = await getEntry('pages', 'homepage');
@@ -20,25 +21,35 @@ const links = await getCollection('links');
 const jobs = await getCollection('jobs');
 const sortedJobs = sortJobsByDate(jobs);
 const talks = await getCollection('talks');
+const { sections } = await loadSiteConfig();
+const homepageSections = sections.homepage;
 ---
 
 <BaseLayout seo={entry.data.seo}>
-  <Container as="section" class="py-6">
-    <Author {...DEFAULT_CONFIGURATION.author} />
-  </Container>
-
-  <Container as="section" class="py-6">
-    <div class="flex flex-col gap-6">
-      <div class="flex items-center">
-        <span class="text-headings">About</span>
-      </div>
-      <div class="prose dark:prose-invert">
-        <Content />
-      </div>
-    </div>
-  </Container>
   {
-    links.length > 0 && (
+    homepageSections.author && (
+      <Container as="section" class="py-6">
+        <Author {...DEFAULT_CONFIGURATION.author} />
+      </Container>
+    )
+  }
+
+  {
+    homepageSections.about && (
+      <Container as="section" class="py-6">
+        <div class="flex flex-col gap-6">
+          <div class="flex items-center">
+            <span class="text-headings">About</span>
+          </div>
+          <div class="prose dark:prose-invert">
+            <Content />
+          </div>
+        </div>
+      </Container>
+    )
+  }
+  {
+    homepageSections.contact && links.length > 0 && (
       <Container as="section" class="py-8">
         <div class="flex flex-col gap-5">
           <span class="text-headings">Contact</span>
@@ -66,7 +77,7 @@ const talks = await getCollection('talks');
     )
   }
   {
-    sortedJobs.length > 0 && (
+    homepageSections.workExperience && sortedJobs.length > 0 && (
       <Container as="section" class="py-6">
         <div class="flex flex-col gap-5">
           <span class="text-headings">Work Experience</span>
@@ -80,7 +91,7 @@ const talks = await getCollection('talks');
     )
   }
   {
-    talks.length > 0 && (
+    homepageSections.speaking && talks.length > 0 && (
       <Container as="section" class="py-6">
         <div class="flex flex-col gap-5">
           <span class="text-headings">Speaking</span>

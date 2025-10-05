@@ -17,3 +17,31 @@ Here’s an overview of folders relevant to customization:
 | `src/lib/`               | Utility functions and constants                           |
 
 > You are free to preserve the labels of `Made by CVFolio` from the footer and the floating badge.
+## Toggle sections and elements
+
+You can hide built-in sections and UI elements without touching the templates by editing `cvfolio.config.json` at the project root. The defaults look like this:
+
+```json
+{
+  "layout": {
+    "header": true,
+    "footer": true,
+    "themeSwitcher": true
+  },
+  "sections": {
+    "homepage": {
+      "author": true,
+      "about": true,
+      "contact": true,
+      "workExperience": true,
+      "speaking": true
+    },
+    "writing": {
+      "author": true,
+      "latestPosts": true
+    }
+  }
+}
+```
+
+Set any flag to `false` to remove that section from the rendered page while keeping the source code intact.

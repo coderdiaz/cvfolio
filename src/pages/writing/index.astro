@@ -5,21 +5,32 @@ import Container from '@/components/Container.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { DEFAULT_CONFIGURATION } from '@/lib/constants';
 import PostPreview from '@/components/ui/PostPreview.astro';
+import { loadSiteConfig } from '@/lib/site-config';
 
 const entry = await getEntry('pages', 'writing');
 const posts = await getCollection('posts');
+const { sections } = await loadSiteConfig();
+const writingSections = sections.writing;
 ---
 
 <BaseLayout seo={entry.data.seo}>
-  <Container as='section' class='py-6'>
-    <Author {...DEFAULT_CONFIGURATION.author} />
-  </Container>
-  <Container as='section' class='py-6'>
-    <div class="flex flex-col gap-6">
-      <span class="text-headings">Latest posts</span>
-      <ul class="flex flex-col gap-3">
-        {posts.map((post) => <PostPreview entry={post} />)}
-      </ul>
-    </div>
-  </Container>
+  {
+    writingSections.author && (
+      <Container as='section' class='py-6'>
+        <Author {...DEFAULT_CONFIGURATION.author} />
+      </Container>
+    )
+  }
+  {
+    writingSections.latestPosts && posts.length > 0 && (
+      <Container as='section' class='py-6'>
+        <div class="flex flex-col gap-6">
+          <span class="text-headings">Latest posts</span>
+          <ul class="flex flex-col gap-3">
+            {posts.map((post) => <PostPreview entry={post} />)}
+          </ul>
+        </div>
+      </Container>
+    )
+  }
 </BaseLayout>

@@ -6,22 +6,24 @@ import Header from '@/components/partials/Header.astro';
 import Footer from '@/components/partials/Footer.astro';
 import Head from '@/components/partials/Head.astro';
 import SwitchTheme from '@/components/SwitchTheme.tsx';
+import { loadSiteConfig } from '@/lib/site-config';
 
 interface Props {
   seo?: Seo
 }
 
 const { seo } = Astro.props;
+const { layout } = await loadSiteConfig();
 ---
 
 <html lang="en">
   <Head seo={seo} />
   <body class="bg-background text-foreground pb-12">
-    <Header />
+    {layout.header && <Header />}
     <main class="pt-24">
       <slot />
     </main>
-    <Footer />
-    <SwitchTheme client:only="react" />
+    {layout.footer && <Footer />}
+    {layout.themeSwitcher && <SwitchTheme client:only="react" />}
   </body>
 </html>
