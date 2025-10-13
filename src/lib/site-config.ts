@@ -105,6 +105,16 @@ function mergeFlags<T extends FlagRecord>(defaults: T, overrides?: Partial<T>): 
   return { ...defaults, ...(overrides ?? {}) } as T;
 }
 
+function cloneSiteConfig(config: SiteConfig): SiteConfig {
+  return {
+    layout: { ...config.layout },
+    sections: {
+      homepage: { ...config.sections.homepage },
+      writing: { ...config.sections.writing },
+    },
+  };
+}
+
 function formatValidationIssues(error: z.ZodError): string {
   return error.issues
     .map((issue) => {
@@ -126,7 +136,7 @@ function validateSiteConfig(raw: unknown): RawSiteConfig | undefined {
   return undefined;
 }
 
-export async function loadSiteConfig(): Promise<SiteConfig> {
+async function readSiteConfig(): Promise<SiteConfig> {
   const defaults = createDefaultSiteConfig();
 
   try {
@@ -135,12 +145,10 @@ export async function loadSiteConfig(): Promise<SiteConfig> {
     const parsedContent = JSON.parse(rawContent);
     const parsed = validateSiteConfig(parsedContent);
 
-    const effective = parsed ?? {};
-
-    const layout = mergeFlags(defaults.layout, effective.layout);
+    const layout = mergeFlags(defaults.layout, parsed?.layout);
     const sections = {
-      homepage: mergeFlags(defaults.sections.homepage, effective.sections?.homepage),
-      writing: mergeFlags(defaults.sections.writing, effective.sections?.writing),
+      homepage: mergeFlags(defaults.sections.homepage, parsed?.sections?.homepage),
+      writing: mergeFlags(defaults.sections.writing, parsed?.sections?.writing),
     };
 
     return { layout, sections };
@@ -148,6 +156,26 @@ export async function loadSiteConfig(): Promise<SiteConfig> {
     console.warn('[cvfolio] Unable to load cvfolio.config.json. Falling back to defaults.', error);
     return defaults;
   }
+}
+
+let cachedSiteConfigPromise: Promise<SiteConfig> | undefined;
+
+export async function loadSiteConfig(): Promise<SiteConfig> {
+  if (!cachedSiteConfigPromise) {
+    cachedSiteConfigPromise = readSiteConfig();
+  }
+
+  const config = await cachedSiteConfigPromise;
+  return cloneSiteConfig(config);
+}
+
+if (import.meta.hot) {
+  import.meta.hot.accept(() => {
+    cachedSiteConfigPromise = undefined;
+  });
+  import.meta.hot.dispose(() => {
+    cachedSiteConfigPromise = undefined;
+  });
 }
 
 export { DEFAULT_SITE_CONFIG };

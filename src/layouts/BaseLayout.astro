@@ -14,13 +14,14 @@ interface Props {
 
 const { seo } = Astro.props;
 const { layout } = await loadSiteConfig();
+const mainPaddingClass = layout.header ? 'pt-24' : 'pt-10';
 ---
 
 <html lang="en">
   <Head seo={seo} />
   <body class="bg-background text-foreground pb-12">
     {layout.header && <Header />}
-    <main class="pt-24">
+    <main class={mainPaddingClass}>
       <slot />
     </main>
     {layout.footer && <Footer />}
