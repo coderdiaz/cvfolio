@@ -6,12 +6,18 @@ import Header from '@/components/partials/Header.astro';
 import Footer from '@/components/partials/Footer.astro';
 import Head from '@/components/partials/Head.astro';
 import SwitchTheme from '@/components/SwitchTheme.tsx';
+import { getSiteConfig } from '@/lib/config';
+
+interface Props {
+  seo?: Seo
+}
 
 interface Props {
   seo?: Seo
 }
 
 const { seo } = Astro.props;
+const config = getSiteConfig();
 ---
 
 <html lang="en">
@@ -22,6 +28,8 @@ const { seo } = Astro.props;
       <slot />
     </main>
     <Footer />
-    <SwitchTheme client:only="react" />
+    {config.elements.themeSwitch && (
+      <SwitchTheme client:only="react" />
+    )}
   </body>
 </html>

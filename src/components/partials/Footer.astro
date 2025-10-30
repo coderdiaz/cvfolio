@@ -1,5 +1,12 @@
 ---
 import Container from '@/components/Container.astro';
+import { getSiteConfig } from '@/lib/config';
+
+const config = getSiteConfig();
+
+if (!config.elements.footer) {
+  return null;
+}
 ---
 
 <Container as='footer' class='pt-24'>
