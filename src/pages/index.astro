@@ -7,7 +7,9 @@ import { DEFAULT_CONFIGURATION } from '@/lib/constants';
 import WorkExperience from '@/components/ui/WorkExperience.astro';
 import Talk from '@/components/ui/Talk.astro';
 import { sortJobsByDate, sortTalksByYear } from '@/lib/utils';
-import { getSiteConfig } from '@/lib/config'
+import { getSiteConfig } from '@/lib/config';
+
+const config = getSiteConfig();
 
 const entry = await getEntry('pages', 'homepage');
 
@@ -22,7 +24,6 @@ const jobs = await getCollection('jobs');
 const sortedJobs = sortJobsByDate(jobs);
 const talks = await getCollection('talks');
 const sortedTalks = sortTalksByYear(talks);
-const config = getSiteConfig(); 
 ---
 
 <BaseLayout seo={entry.data.seo}>
