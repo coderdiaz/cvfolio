@@ -27,9 +27,8 @@ const isWritingPage = pathname.startsWith('/writing');
                 'font-medium transition-colors block px-5 py-2',
                 'hover:text-headings',
                 isHomePage && 'text-headings bg-muted-foreground/40 rounded-full',
-              ]}>
-              Home
-            </a>
+              ]}>Home</a
+            >
           </li>
           {config.sections.writing && (
             <li>
@@ -40,9 +39,8 @@ const isWritingPage = pathname.startsWith('/writing');
                   'hover:text-headings',
                   isWritingPage &&
                     'text-headings bg-muted-foreground/40 rounded-full',
-                ]}>
-                Writing
-              </a>
+                ]}>Writing</a
+              >
             </li>
           )}
         </ul>

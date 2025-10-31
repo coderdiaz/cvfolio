@@ -23,7 +23,7 @@ export const includeDraft = (draft: boolean) => {
   return draft !== true;
 };
 
-export const sortJobsByDate = (jobs: CollectionEntry<'jobs'>[]) => {
+export const sortByDateRange = (jobs: CollectionEntry<'jobs'>[]) => {
   // Convert "Now" to current year, otherwise returns the year as is
   const getEndYear = (job: CollectionEntry<'jobs'>) =>
     job.data.to === 'Now' ? new Date().getFullYear() : job.data.to;
@@ -35,6 +35,6 @@ export const sortJobsByDate = (jobs: CollectionEntry<'jobs'>[]) => {
   });
 };
 
-export const sortTalksByYear = (talks: CollectionEntry<'talks'>[]) => {
+export const sortByYear = (talks: CollectionEntry<'talks'>[]) => {
   return talks.sort((a, b) => b.data.year - a.data.year);
 };
