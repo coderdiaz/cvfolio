@@ -1,0 +1,14 @@
+# Site Configuration - Control visibility of sections
+sections:
+  about: true
+  workExperience: true
+  talks: true
+  writing: true
+  socialLinks: true
+
+# Individual elements
+elements:
+  avatar: true
+  themeSwitch: true
+  header: true
+  footer: true

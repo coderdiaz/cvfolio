@@ -7,6 +7,7 @@ import { DEFAULT_CONFIGURATION } from '@/lib/constants';
 import WorkExperience from '@/components/ui/WorkExperience.astro';
 import Talk from '@/components/ui/Talk.astro';
 import { sortByDateRange, sortByYear } from '@/lib/utils';
+import { getSiteConfig } from '@/lib/config';
 
 const entry = await getEntry('pages', 'homepage');
 
@@ -23,25 +24,31 @@ const sortedJobs = sortByDateRange(jobs);
 
 const talks = await getCollection('talks');
 const sortedTalks = sortByYear(talks);
+
+const config = getSiteConfig();
 ---
 
 <BaseLayout seo={entry.data.seo}>
-  <Container as="section" class="py-6">
-    <Author {...DEFAULT_CONFIGURATION.author} />
-  </Container>
+  {config.elements.avatar && (
+    <Container as="section" class="py-6">
+      <Author {...DEFAULT_CONFIGURATION.author} />
+    </Container>
+  )}
 
-  <Container as="section" class="py-6">
-    <div class="flex flex-col gap-6">
-      <div class="flex items-center">
-        <span class="text-headings">About</span>
+  {config.sections.about && (
+    <Container as="section" class="py-6">
+      <div class="flex flex-col gap-6">
+        <div class="flex items-center">
+          <span class="text-headings">About</span>
+        </div>
+        <div class="prose dark:prose-invert">
+          <Content />
+        </div>
       </div>
-      <div class="prose dark:prose-invert">
-        <Content />
-      </div>
-    </div>
-  </Container>
+    </Container>
+  )}
   {
-    links.length > 0 && (
+    config.sections.socialLinks && links.length > 0 && (
       <Container as="section" class="py-8">
         <div class="flex flex-col gap-5">
           <span class="text-headings">Contact</span>
@@ -69,7 +76,7 @@ const sortedTalks = sortByYear(talks);
     )
   }
   {
-    sortedJobs.length > 0 && (
+    config.sections.workExperience && sortedJobs.length > 0 && (
       <Container as="section" class="py-6">
         <div class="flex flex-col gap-5">
           <span class="text-headings">Work Experience</span>
@@ -83,7 +90,7 @@ const sortedTalks = sortByYear(talks);
     )
   }
   {
-    talks.length > 0 && (
+    config.sections.talks && sortedTalks.length > 0 && (
       <Container as="section" class="py-6">
         <div class="flex flex-col gap-5">
           <span class="text-headings">Speaking</span>
