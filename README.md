@@ -1,6 +1,6 @@
 # CVfolio
 
-**Welcome to CVfolio!**. CVfolio is an minimalistic and aesthetic Astro template for developers and designers to showcase their professional journey, portfolio, and expertise in a modern, fast-loading website inspired by Read.CV.
+**Welcome to CVfolio!** CVfolio is an minimalistic and aesthetic Astro template for developers and designers to showcase their professional journey, portfolio, and expertise in a modern, fast-loading website inspired by Read.CV.
 
 The source code is still being worked on, so **it's important to share it** with you so we can get feedback and constantly improve it.
 
