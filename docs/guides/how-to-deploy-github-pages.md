@@ -77,13 +77,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install, build, and upload your site
-        uses: withastro/action@v3
+        uses: withastro/action@v5
         # with:
           # path: . # The root location of your Astro project inside the repository. (optional)
-          # node-version: 20 # The specific version of Node that should be used to build your site. Defaults to 20. (optional)
+          # node-version: 22 # The specific version of Node that should be used to build your site. Defaults to 22. (optional)
           # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
+          # build-cmd: pnpm run build # The command to run to build your site. Runs the package build script/task by default. (optional)
 
   deploy:
     needs: build
@@ -144,7 +145,7 @@ You can add environment variables to your workflow for different deployment envi
 
 ```yaml
 - name: Install, build, and upload your site
-  uses: withastro/action@v1
+  uses: withastro/action@v5
   env:
     NODE_ENV: production
     # Add other environment variables as needed
@@ -162,7 +163,7 @@ If you need custom build commands, you can modify the workflow:
   run: npm run build
 
 - name: Upload to GitHub Pages
-  uses: actions/upload-pages-artifact@v3
+  uses: actions/upload-pages-artifact@v4
   with:
     path: ./dist
 ```
