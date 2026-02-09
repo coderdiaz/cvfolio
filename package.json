@@ -1,7 +1,7 @@
 {
   "name": "cvfolio",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.10",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -9,22 +9,22 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "4.3.9",
-    "@astrojs/react": "4.4.1",
-    "@astrojs/sitemap": "3.6.0",
+    "@astrojs/mdx": "4.3.13",
+    "@astrojs/react": "4.4.2",
+    "@astrojs/sitemap": "3.7.0",
     "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.1.16",
+    "@tailwindcss/vite": "^4.1.18",
     "@types/js-yaml": "^4.0.9",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "astro": "5.15.2",
-    "framer-motion": "^12.23.24",
-    "js-yaml": "^4.1.0",
-    "lucide-react": "^0.548.0",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "astro": "5.17.1",
+    "framer-motion": "^12.33.0",
+    "js-yaml": "^4.1.1",
+    "lucide-react": "^0.563.0",
     "mdast-util-to-string": "^4.0.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "reading-time": "^1.5.0",
-    "tailwindcss": "^4.1.16"
+    "tailwindcss": "^4.1.18"
   }
 }
