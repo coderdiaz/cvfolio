@@ -18,7 +18,6 @@ const seoImage = generateAbsoluteUrl(image.src);
   <meta charset="utf-8" />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <Font cssVariable="--font-inter" preload />
   <Font cssVariable="--font-inter-variable" preload />
   { seo?.canonicalUrl && <link rel="canonical" href={seo?.canonicalUrl} />}
   <title>{seo?.title || defaultSeo.title}</title>
