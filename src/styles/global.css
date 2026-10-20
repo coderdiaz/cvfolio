@@ -1,12 +1,6 @@
 :root {
-  font-family: var(--font-inter), sans-serif;
-}
-
-@supports (font-variation-settings: normal) {
-  :root {
-    font-family: var(--font-inter-variable), sans-serif;
-    font-optical-sizing: auto;
-  }
+  font-family: var(--font-inter-variable), sans-serif;
+  font-optical-sizing: auto;
 }
 
 @import 'tailwindcss';
@@ -55,7 +49,7 @@
   --color-headings: var(--palette-800);
   --color-border: var(--palette-300);
 
-  --font-sans: var(--font-inter), 
+  --font-sans: var(--font-inter-variable), 
     ui-sans-serif, 
     system-ui, 
     sans-serif, 
