@@ -1,4 +1,5 @@
 ---
+import { Image, getImage } from 'astro:assets';
 import { render, type CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -8,12 +9,18 @@ interface Props {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
-const images = entry.data.images
-  ? entry.data.images.map((img) => ({
-      src: img.src,
+const images = entry.data.images ?? [];
+
+// Optimized variants used by the lightbox (larger than thumbnails).
+const lightboxImages = await Promise.all(
+  images.map(async (image) => {
+    const optimized = await getImage({ src: image, width: 1600, format: 'webp' });
+    return {
+      src: optimized.src,
       alt: entry.data.title,
-    }))
-  : [];
+    };
+  }),
+);
 ---
 
 <li class="py-0.5">
@@ -38,12 +45,17 @@ const images = entry.data.images
             {images.map((image, idx) => (
               <button
                 class="work-image-thumb overflow-hidden rounded-lg border border-border hover:opacity-80 transition-opacity"
-                data-images={JSON.stringify(images)}
+                data-images={JSON.stringify(lightboxImages)}
                 data-index={idx}
               >
-                <img
-                  src={image.src}
-                  alt={image.alt}
+                <Image
+                  src={image}
+                  alt={entry.data.title}
+                  width={80}
+                  height={80}
+                  format="avif"
+                  loading="lazy"
+                  decoding="async"
                   class="w-20 h-20 object-cover"
                 />
               </button>
@@ -56,16 +68,19 @@ const images = entry.data.images
 </li>
 
 <script>
-  import ImageLightbox from './ImageLightbox';
-  import { createRoot } from 'react-dom/client';
-  import { createElement } from 'react';
-
   const container = document.querySelector('.flex.gap-2.flex-wrap.mt-2');
 
   if (container) {
-    const clickHandler = (event: Event) => {
+    const clickHandler = async (event: Event) => {
       const thumb = (event.target as HTMLElement).closest('.work-image-thumb');
       if (!thumb || !container.contains(thumb)) return;
+
+      const [{ default: ImageLightbox }, { createRoot }, { createElement }] =
+        await Promise.all([
+          import('./ImageLightbox'),
+          import('react-dom/client'),
+          import('react'),
+        ]);
 
       const images = JSON.parse(thumb.getAttribute('data-images') || '[]');
       const index = parseInt(thumb.getAttribute('data-index') || '0');
