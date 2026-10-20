@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import yaml from 'js-yaml';
-import { z } from 'astro:content';
+import * as yaml from 'js-yaml';
+import { z } from 'astro/zod';
 
 const SiteConfigSchema = z.object({
   sections: z.object({
