@@ -1,8 +1,5 @@
 /* Variable fonts usage:
-:root { font-family: "Inter", sans-serif; }
-@supports (font-variation-settings: normal) {
-  :root { font-family: "InterVariable", sans-serif; font-optical-sizing: auto; }
-} */
+:root { font-family: "InterVariable", sans-serif; font-optical-sizing: auto; } */
 @font-face {
   font-family: InterVariable;
   font-style: normal;
@@ -10,10 +7,3 @@
   font-display: swap;
   src: url("./InterVariable.woff2") format("woff2");
 }
-
-/* static fonts */
-@font-face { font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap; src: url("./Inter-Regular.woff2") format("woff2"); }
-@font-face { font-family: "Inter"; font-style: normal; font-weight: 500; font-display: swap; src: url("./Inter-Medium.woff2") format("woff2"); }
-@font-face { font-family: "Inter"; font-style: normal; font-weight: 600; font-display: swap; src: url("./Inter-SemiBold.woff2") format("woff2"); }
-@font-face { font-family: "Inter"; font-style: normal; font-weight: 700; font-display: swap; src: url("./Inter-Bold.woff2") format("woff2"); }
-@font-face { font-family: "Inter"; font-style: normal; font-weight: 900; font-display: swap; src: url("./Inter-ExtraBold.woff2") format("woff2"); }
