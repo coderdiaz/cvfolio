@@ -1,4 +1,5 @@
-import { defineCollection, type ImageFunction, z } from 'astro:content';
+import { defineCollection, type ImageFunction } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 export const seoSchemaWithoutImage = z.object({

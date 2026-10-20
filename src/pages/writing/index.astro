@@ -7,6 +7,11 @@ import { DEFAULT_CONFIGURATION } from '@/lib/constants';
 import PostPreview from '@/components/ui/PostPreview.astro';
 
 const entry = await getEntry('pages', 'writing');
+
+if (!entry) {
+  throw new Error("Missing required content entry: pages/writing");
+}
+
 const posts = await getCollection('posts');
 ---
 

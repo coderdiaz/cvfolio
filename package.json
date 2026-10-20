@@ -9,22 +9,27 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "4.3.13",
-    "@astrojs/react": "4.4.2",
-    "@astrojs/sitemap": "3.7.0",
-    "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.1.18",
+    "@astrojs/markdown-remark": "^7.3.3",
+    "@astrojs/mdx": "^8.1.0",
+    "@astrojs/react": "^7.1.0",
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/js-yaml": "^4.0.9",
-    "@types/react": "^19.2.13",
-    "@types/react-dom": "^19.2.3",
-    "astro": "5.17.1",
-    "framer-motion": "^12.33.0",
-    "js-yaml": "^4.1.1",
-    "lucide-react": "^0.563.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "astro": "^7.4.1",
+    "framer-motion": "^14.4.0",
+    "js-yaml": "^5.5.0",
+    "lucide-react": "^1.59.0",
     "mdast-util-to-string": "^4.0.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "reading-time": "^1.5.0",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.11",
+    "typescript": "^6.0.3"
   }
 }
