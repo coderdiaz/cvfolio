@@ -13,6 +13,7 @@ const image = await getImage({ src: avatar, format: 'avif'});
   <div class="relative rounded-full shrink-0 overflow-hidden">
     <Image
       loading="eager"
+      fetchpriority="high"
       src={image.src}
       alt={name}
       width={92}
